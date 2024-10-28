@@ -5,6 +5,5 @@ import 'package:get_state_mixin/repository/via_cep_repository.dart';
 
 class HomeController extends GetxController {
   final ViaCepRepository _viaCepRepository;
-  
   HomeController(this._viaCepRepository);
 }
