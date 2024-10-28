@@ -3,12 +3,12 @@ import 'dart:convert';
 class CepModel {
   String cep;
   String logradouro;
-  String cidade;
+  String localidade;
   String uf;
   CepModel({
     required this.cep,
     required this.logradouro,
-    required this.cidade,
+    required this.localidade,
     required this.uf,
   });
 
@@ -16,7 +16,7 @@ class CepModel {
     return <String, dynamic>{
       'cep': cep,
       'logradouro': logradouro,
-      'cidade': cidade,
+      'localidade': localidade,
       'uf': uf,
     };
   }
@@ -25,7 +25,7 @@ class CepModel {
     return CepModel(
       cep: (map['cep'] ?? '') as String,
       logradouro: (map['logradouro'] ?? '') as String,
-      cidade: (map['cidade'] ?? '') as String,
+      localidade: (map['localidade'] ?? '') as String,
       uf: (map['uf'] ?? '') as String,
     );
   }

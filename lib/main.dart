@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/',
           binding: HomeBindings(),
-          page: () => const HomePage(),
+          page: () => HomePage(),
         ),
       ],
     );

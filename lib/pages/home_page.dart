@@ -1,7 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'package:get_state_mixin/models/cep_model.dart';
+import 'package:get_state_mixin/pages/home_controller.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final controller = Get.find<HomeController>();
+
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +20,32 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextFormField(),
+            TextFormField(
+              onChanged: (value) {
+                controller.cepSearch = value;
+              },
+            ),
             ElevatedButton(
                 onPressed: () {
-                  //
+                  controller.findAddress();
                 },
                 child: const Text("Buscar")),
             const SizedBox(height: 20),
-            CEPWidget(),
+            Obx(() => Visibility(
+                visible: controller.loading,
+                child:
+                    const Center(child: CircularProgressIndicator.adaptive()))),
+            Obx(
+              () => Visibility(
+                  visible: controller.isError,
+                  child: const Text('Erro ao buscar CEP!')),
+            ),
+            Obx(() {
+              return Visibility(
+                visible: !controller.loading,
+                child: CEPWidget(controller.cep),
+              );
+            })
           ],
         ),
       ),
@@ -29,16 +54,18 @@ class HomePage extends StatelessWidget {
 }
 
 class CEPWidget extends StatelessWidget {
-  const CEPWidget({super.key});
+  final CepModel? cepModel;
+
+  const CEPWidget(this.cepModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Text("CEP"),
-        Text("CIDADE"),
-        Text("RUA"),
-        Text("UF"),
+        Text("CEP: ${cepModel?.cep ?? ''}"),
+        Text("CIDADE: ${cepModel?.localidade ?? ''}"),
+        Text("RUA: ${cepModel?.logradouro ?? ''}"),
+        Text("UF: ${cepModel?.uf ?? ''}"),
       ],
     );
   }
