@@ -45,8 +45,19 @@ class HomePage extends StatelessWidget {
             //       visible: !controller.loading,
             //       child: CEPWidget(controller.cep));
             // })
-            //!como substituir por stateMixin 
-            controller.obx((state) => CEPWidget(state)),
+            //!como substituir por stateMixin
+            controller.obx(
+              (state) => CEPWidget(state),
+              onEmpty: const Text('Nenhum CEP encontrado'),
+              onLoading: const Text('Carregando...'),
+              onError: (erro) => const Text(
+                '* Erro ao buscar CEP',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             //
           ],
         ),

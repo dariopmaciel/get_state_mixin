@@ -15,6 +15,11 @@ class HomeControllerStateMixin extends GetxController
 
   set cepSearch(String cepSearch) => _cepSearch.value = cepSearch;
 
+  @override
+  void onReady() {
+    change(state, status: RxStatus.empty());
+  }
+
   //  Future<void> findAddress() async {
   //   try {
   //     _error(false);
@@ -35,11 +40,11 @@ class HomeControllerStateMixin extends GetxController
       // _error(false);
       // _loading(true);
       change(state, status: RxStatus.loading());
-      await 1.seconds.delay();
+      await 2.seconds.delay();
       final cep = await _repository.getCep(_cepSearch.value);
       // _cep(cep);
       // _loading(false);
-      change(state, status: RxStatus.success());
+      change(cep, status: RxStatus.success());
     } catch (e) {
       // _error(true);
       change(state, status: RxStatus.error());
