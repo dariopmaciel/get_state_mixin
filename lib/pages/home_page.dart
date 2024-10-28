@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 
 import 'package:get_state_mixin/models/cep_model.dart';
 import 'package:get_state_mixin/pages/home_controller.dart';
+import 'package:get_state_mixin/pages/home_controller_state_mixin.dart';
 
 class HomePage extends StatelessWidget {
-  final controller = Get.find<HomeController>();
+  // final controller = Get.find<HomeController>();
+  final controller = Get.find<HomeControllerStateMixin>();
 
   HomePage({super.key});
 
@@ -31,21 +33,21 @@ class HomePage extends StatelessWidget {
                 },
                 child: const Text("Buscar")),
             const SizedBox(height: 20),
-            Obx(() => Visibility(
-                visible: controller.loading,
-                child:
-                    const Center(child: CircularProgressIndicator.adaptive()))),
-            Obx(
-              () => Visibility(
-                  visible: controller.isError,
-                  child: const Text('Erro ao buscar CEP!')),
-            ),
-            Obx(() {
-              return Visibility(
-                visible: !controller.loading,
-                child: CEPWidget(controller.cep),
-              );
-            })
+            // Obx(() => Visibility(
+            //     visible: controller.loading,
+            //     child:
+            //         const Center(child: CircularProgressIndicator.adaptive()))),
+            // Obx(() => Visibility(
+            //     visible: controller.isError,
+            //     child: const Text('Erro ao buscar CEP!'))),
+            // Obx(() {
+            //   return Visibility(
+            //       visible: !controller.loading,
+            //       child: CEPWidget(controller.cep));
+            // })
+            //!como substituir por stateMixin 
+            controller.obx((state) => CEPWidget(state)),
+            //
           ],
         ),
       ),

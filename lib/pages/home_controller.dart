@@ -6,6 +6,7 @@ import 'package:get_state_mixin/repository/via_cep_repository.dart';
 
 class HomeController extends GetxController {
   final ViaCepRepository _repository;
+ 
   final _cepSearch = ''.obs;
   final _cep = Rxn<CepModel>();
   final _loading = false.obs;
