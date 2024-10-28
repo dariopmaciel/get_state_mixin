@@ -41,7 +41,7 @@ class HomeControllerStateMixin extends GetxController
       // _loading(true);
       change(state, status: RxStatus.loading());
       await 2.seconds.delay();
-      final cep = await _repository.getCep(_cepSearch.value);
+      final cep = await _findAddressRepository();
       // _cep(cep);
       // _loading(false);
       change(cep, status: RxStatus.success());
@@ -53,4 +53,21 @@ class HomeControllerStateMixin extends GetxController
     // _loading(false);
     // }
   }
+
+  Future<void> findAddress2() async {
+    change(state, status: RxStatus.loading());
+    // append(
+    //   () => () {
+    //     final cep = _cepSearch.value;
+    //     return _repository.getCep(cep);
+    //   },
+    // );
+    //! igual ao de baixo
+    // append(() => () => _repository.getCep(_cepSearch.value));
+    //! igual ao de baixo
+    append(() => _findAddressRepository);
+  }
+
+  Future<CepModel> _findAddressRepository() async =>
+      await _repository.getCep(_cepSearch.value);
 }
